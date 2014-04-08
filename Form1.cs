@@ -24,19 +24,13 @@ namespace MasterOfWebM
         Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");     // Regex to verify if txtStartTime is properly typed in
         Regex verifyWidth = new Regex(@"^\d{1,4}");                         // Regex to verify if txtWidth is properly typed in
 
-        String command = "-y ";                                             // Starts the ffmpeg command off
-        String commandPass1 = null;
-        String commandPass2 = null;
-        String commandScale = null;
-
+        // ********************
+        //      Functions
+        // ********************
         public Form1()
         {
             InitializeComponent();
         }
-
-        // ********************
-        //      Functions
-        // ********************
 
         // As soon as the user clicks on txtTimeStart, get rid of the informational text
         private void txtTimeStart_Click(object sender, EventArgs e)
@@ -61,6 +55,11 @@ namespace MasterOfWebM
 
         private void button3_Click(object sender, EventArgs e)
         {
+            String command = "-y ";
+            String commandPass1 = null;
+            String commandPass2 = null;
+            String commandScale = null;
+
             // Verification boolean just incase the user messes up
             bool verified = true;
 

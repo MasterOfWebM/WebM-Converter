@@ -19,7 +19,6 @@ Plenty of stuff is planned:
 
 * Ability to use subtitles
 * Input custom size restriction
-* Ability to maintain the same resolution automatically (You can just enter the original width)
 * Check the size of the outputted video to see if it worked properly
   * If it didn't, then give recommendations to the user to fix it
 * Update check

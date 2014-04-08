@@ -27,6 +27,7 @@ namespace MasterOfWebM
         String command = "-y ";                                             // Starts the ffmpeg command off
         String commandPass1 = null;
         String commandPass2 = null;
+        String commandScale = null;
 
         public Form1()
         {
@@ -78,8 +79,15 @@ namespace MasterOfWebM
             // Validates if the user input a value for txtWidth
             if (!verifyWidth.IsMatch(txtWidth.Text))
             {
-                verified = false;
-                MessageBox.Show("The width is not properly set", "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (txtWidth.Text != "")
+                {
+                    verified = false;
+                    MessageBox.Show("The width is not properly set", "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                commandScale = " -vf scale=" + txtWidth.Text;
             }
             // Validates if the user input a value for txtInput
             if (txtInput.Text == "")
@@ -105,7 +113,7 @@ namespace MasterOfWebM
                 if (seconds > 30)
                 {
                     command += "-ss " + Convert.ToString(seconds - 30) + " -i \"" + txtInput.Text + "\" -ss 30 -t " + txtLength.Text +
-                    " -c:v libvpx -b:v " + bitrate +" -vf scale=" + txtWidth.Text + ":-1 -threads " + Environment.ProcessorCount +
+                    " -c:v libvpx -b:v " + bitrate + commandScale + " -threads " + Environment.ProcessorCount +
                     " -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
                     commandPass1 = command + "-f webm NUL";
                     commandPass2 = command + "\"" + txtOutput.Text + "\"";
@@ -113,7 +121,7 @@ namespace MasterOfWebM
                 else if (seconds <= 30)
                 {
                     command += " -i \"" + txtInput.Text + "\" -ss " + seconds + " -t " + txtLength.Text +
-                    " -c:v libvpx -b:v " + bitrate + " -vf scale=" + txtWidth.Text + ":-1 -threads " + Environment.ProcessorCount +
+                    " -c:v libvpx -b:v " + bitrate + commandScale + " -threads " + Environment.ProcessorCount +
                     " -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
                     commandPass1 = command + "-f webm NUL";
                     commandPass2 = command + "\"" + txtOutput.Text + "\"";

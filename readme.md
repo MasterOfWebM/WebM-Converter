@@ -4,6 +4,10 @@ This is a simple wrapper for [ffmpeg](http://www.ffmpeg.org/download.html) to cr
 Make sure that you have your own ffmpeg in the root directory of the program, otherwise nothing will happen. Better yet, it should be within your System Variable, but whatever.
 
 ##What can it do?
+This is what she looks like:
+
+![alt text](http://i.imgur.com/PKGlv2I.png)
+
 Currently it can only:
 
 * Automatically calculate the bitrate needed (3MB (Which doesn't work for all boards, like /b/))

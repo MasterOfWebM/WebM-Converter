@@ -1,5 +1,5 @@
 #!WebM.y.TsM's WebM Converter
-This is a simple wrapper for [FFmpeg](http://www.ffmpeg.org/download.html) to create WebM files. My version is generally among the best, due to my experience with encoding videos for years.
+This is a simple wrapper for [FFmpeg](http://www.ffmpeg.org/download.html) to create WebM files. My version is generally among the best, due to my experience with encoding videos for years. To download it, please click [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.1.4/Release.zip), [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.1.4/Release.zip), or [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.1.4/Release.zip).
 
 Make sure that you have your own FFmpeg in the root directory of the program, otherwise nothing will happen. Better yet, it should be within your System Variable, but whatever.
 

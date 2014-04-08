@@ -87,7 +87,7 @@ namespace MasterOfWebM
             }
             else
             {
-                commandScale = " -vf scale=" + txtWidth.Text;
+                commandScale = " -vf scale=" + txtWidth.Text + ":-1";
             }
             // Validates if the user input a value for txtInput
             if (txtInput.Text == "")

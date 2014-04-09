@@ -8,9 +8,9 @@ This is what she looks like:
 
 ![alt text](http://i.imgur.com/0mE0VvV.png)
 
-Currently it can only:
+Currently it can:
 
-* Automatically calculate the bitrate needed (3MB (Which doesn't work for all boards, like /b/))
+* Automatically calculate the bitrate needed for a given size
 * Scale the video
 * Seek to a custom time
 
@@ -32,7 +32,6 @@ Irony.
 Plenty of stuff is planned:
 
 * Ability to use subtitles
-* Input custom size restriction
 * Check the size of the outputted video to see if it worked properly
   * If it didn't, then give recommendations to the user to fix it
 * Update check

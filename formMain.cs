@@ -17,15 +17,11 @@ namespace MasterOfWebM
         // ********************
         //      Variables
         // ********************
-        private const double FILESIZE = 3;                                  // Generic filesize of most boards
-        private const int BITCONVERSION = 8 * 1024;                         // Converts the filesize to Kilobits
-
         private int THREADS = Environment.ProcessorCount;                   // Obtains the number of threads the computer has
 
         Regex verifyLength = new Regex(@"^\d{1,3}");                        // Regex to verify if txtLength is properly typed in
         Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");     // Regex to verify if txtStartTime is properly typed in
         Regex verifyWidth = new Regex(@"^\d{1,4}");                         // Regex to verify if txtWidth is properly typed in
-
 
         // ********************
         //      Functions
@@ -58,7 +54,7 @@ namespace MasterOfWebM
 
         private void button3_Click(object sender, EventArgs e)
         {
-            String command = "-y ";
+            String command = "-y";
             String commandPass1 = null;
             String commandPass2 = null;
             String commandScale = null;
@@ -107,26 +103,26 @@ namespace MasterOfWebM
             // If everything is valid, continue with the conversion
             if (verified)
             {
-                // Calculates the bitrate needed to hit FILESIZE with length txtLength
-                String bitrate = Convert.ToString(Math.Floor(FILESIZE * BITCONVERSION / Convert.ToDouble(txtLength.Text))) + "K";
+                // Calculates the bitrate needed to hit txtMaxSize with length txtLength
+                String bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
                 // Calculates the seconds from the time-code
                 double seconds = Helper.convertToSeconds(txtTimeStart.Text);
 
                 if (seconds > 30)
                 {
-                    command += "-ss " + Convert.ToString(seconds - 30) + " -i \"" + txtInput.Text + "\" -ss 30 -t " + txtLength.Text +
+                    command += " -ss " + Convert.ToString(seconds - 30) + " -i \"" + txtInput.Text + "\" -ss 30 -t " + txtLength.Text +
                     " -c:v libvpx -b:v " + bitrate + commandScale + " -threads " + THREADS +
                     " -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
-                    commandPass1 = command + "-f webm NUL";
-                    commandPass2 = command + "\"" + txtOutput.Text + "\"";
+                    commandPass1 = command + "-pass 1 -f webm NUL";
+                    commandPass2 = command + "-pass 2 \"" + txtOutput.Text + "\"";
                 }
                 else if (seconds <= 30)
                 {
                     command += " -i \"" + txtInput.Text + "\" -ss " + seconds + " -t " + txtLength.Text +
                     " -c:v libvpx -b:v " + bitrate + commandScale + " -threads " + THREADS +
                     " -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
-                    commandPass1 = command + "-f webm NUL";
-                    commandPass2 = command + "\"" + txtOutput.Text + "\"";
+                    commandPass1 = command + "-pass 1 -f webm NUL";
+                    commandPass2 = command + "-pass 2 \"" + txtOutput.Text + "\"";
                 }
 
                 try
@@ -163,21 +159,6 @@ namespace MasterOfWebM
             {
                 txtOutput.Text = saveFileDialog1.FileName;
             }
-        }
-
-        private void txtLength_TextChanged(object sender, EventArgs e)
-        {
-            if (lblBitrate.Text != "")
-                try
-                {
-                    lblBitrate.Text = "Bitrate: " + Convert.ToString(Math.Floor(FILESIZE * BITCONVERSION / Convert.ToDouble(txtLength.Text))) + "K";
-                }
-                catch (Exception err)
-                {
-                    lblBitrate.Text = "Bitrate: ";
-                }
-            else
-                lblBitrate.Text = "Bitrate: ";
         }
 
         private void formMain_Load(object sender, EventArgs e)

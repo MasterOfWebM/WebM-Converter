@@ -43,7 +43,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lblBitrate = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblThreads = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMaxSize = new System.Windows.Forms.TextBox();
@@ -116,7 +115,6 @@
             this.txtLength.Size = new System.Drawing.Size(62, 20);
             this.txtLength.TabIndex = 4;
             this.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtLength.TextChanged += new System.EventHandler(this.txtLength_TextChanged);
             // 
             // txtTimeStart
             // 
@@ -174,7 +172,6 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblBitrate,
             this.lblThreads});
             this.statusStrip1.Location = new System.Drawing.Point(0, 172);
             this.statusStrip1.Name = "statusStrip1";
@@ -182,12 +179,6 @@
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lblBitrate
-            // 
-            this.lblBitrate.Name = "lblBitrate";
-            this.lblBitrate.Size = new System.Drawing.Size(44, 17);
-            this.lblBitrate.Text = "Bitrate:";
             // 
             // lblThreads
             // 
@@ -212,6 +203,7 @@
             this.txtMaxSize.Name = "txtMaxSize";
             this.txtMaxSize.Size = new System.Drawing.Size(69, 20);
             this.txtMaxSize.TabIndex = 6;
+            this.txtMaxSize.Text = "3";
             this.txtMaxSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMaxSize.Click += new System.EventHandler(this.txtTimeStart_Click);
             this.txtMaxSize.LostFocus += new System.EventHandler(this.txtTimeStart_LostFocus);
@@ -309,7 +301,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtWidth;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel lblBitrate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMaxSize;
         private System.Windows.Forms.Label label2;

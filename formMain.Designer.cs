@@ -103,7 +103,7 @@
             this.txtWidth.Location = new System.Drawing.Point(75, 116);
             this.txtWidth.MaxLength = 4;
             this.txtWidth.Name = "txtWidth";
-            this.txtWidth.Size = new System.Drawing.Size(62, 20);
+            this.txtWidth.Size = new System.Drawing.Size(69, 20);
             this.txtWidth.TabIndex = 5;
             this.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -112,7 +112,7 @@
             this.txtLength.Location = new System.Drawing.Point(75, 90);
             this.txtLength.MaxLength = 3;
             this.txtLength.Name = "txtLength";
-            this.txtLength.Size = new System.Drawing.Size(62, 20);
+            this.txtLength.Size = new System.Drawing.Size(69, 20);
             this.txtLength.TabIndex = 4;
             this.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -228,6 +228,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Enabled = false;
             this.textBox1.ForeColor = System.Drawing.Color.Silver;
             this.textBox1.Location = new System.Drawing.Point(222, 90);
             this.textBox1.Name = "textBox1";
@@ -239,6 +240,7 @@
             // comboQuality
             // 
             this.comboQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboQuality.Enabled = false;
             this.comboQuality.FormattingEnabled = true;
             this.comboQuality.Items.AddRange(new object[] {
             "Best",

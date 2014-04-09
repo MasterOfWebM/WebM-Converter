@@ -20,9 +20,12 @@ namespace MasterOfWebM
         private const double FILESIZE = 3;                                  // Generic filesize of most boards
         private const int BITCONVERSION = 8 * 1024;                         // Converts the filesize to Kilobits
 
+        private int THREADS = Environment.ProcessorCount;                   // Obtains the number of threads the computer has
+
         Regex verifyLength = new Regex(@"^\d{1,3}");                        // Regex to verify if txtLength is properly typed in
         Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");     // Regex to verify if txtStartTime is properly typed in
         Regex verifyWidth = new Regex(@"^\d{1,4}");                         // Regex to verify if txtWidth is properly typed in
+
 
         // ********************
         //      Functions
@@ -112,7 +115,7 @@ namespace MasterOfWebM
                 if (seconds > 30)
                 {
                     command += "-ss " + Convert.ToString(seconds - 30) + " -i \"" + txtInput.Text + "\" -ss 30 -t " + txtLength.Text +
-                    " -c:v libvpx -b:v " + bitrate + commandScale + " -threads " + Environment.ProcessorCount +
+                    " -c:v libvpx -b:v " + bitrate + commandScale + " -threads " + THREADS +
                     " -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
                     commandPass1 = command + "-f webm NUL";
                     commandPass2 = command + "\"" + txtOutput.Text + "\"";
@@ -120,7 +123,7 @@ namespace MasterOfWebM
                 else if (seconds <= 30)
                 {
                     command += " -i \"" + txtInput.Text + "\" -ss " + seconds + " -t " + txtLength.Text +
-                    " -c:v libvpx -b:v " + bitrate + commandScale + " -threads " + Environment.ProcessorCount +
+                    " -c:v libvpx -b:v " + bitrate + commandScale + " -threads " + THREADS +
                     " -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
                     commandPass1 = command + "-f webm NUL";
                     commandPass2 = command + "\"" + txtOutput.Text + "\"";
@@ -175,6 +178,12 @@ namespace MasterOfWebM
                 }
             else
                 lblBitrate.Text = "Bitrate: ";
+        }
+
+        private void formMain_Load(object sender, EventArgs e)
+        {
+            lblThreads.Text = "Threads: " + THREADS;
+            comboQuality.SelectedIndex = 0;
         }
     }
 }

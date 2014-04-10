@@ -205,8 +205,6 @@
             this.txtMaxSize.TabIndex = 6;
             this.txtMaxSize.Text = "3";
             this.txtMaxSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMaxSize.Click += new System.EventHandler(this.txtTimeStart_Click);
-            this.txtMaxSize.LostFocus += new System.EventHandler(this.txtTimeStart_LostFocus);
             // 
             // label2
             // 

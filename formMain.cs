@@ -56,6 +56,9 @@ namespace MasterOfWebM
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            // Disable btnConvert so user's cant click on it multiple times
+            btnConvert.Enabled = false;
+
             // Base command where each element gets replaced
             String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {quality} -an ";
             String commandPass1 = "-pass 1 -f webm NUL";
@@ -208,6 +211,8 @@ namespace MasterOfWebM
                 txtOutput.Text = null;
             }
 
+            // Re-enable the button after a run
+            btnConvert.Enabled = true;
         }
 
         private void btnInput_Click(object sender, EventArgs e)

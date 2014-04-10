@@ -240,7 +240,6 @@
             // comboQuality
             // 
             this.comboQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboQuality.Enabled = false;
             this.comboQuality.FormattingEnabled = true;
             this.comboQuality.Items.AddRange(new object[] {
             "Best",

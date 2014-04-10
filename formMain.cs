@@ -57,7 +57,7 @@ namespace MasterOfWebM
         private void btnConvert_Click(object sender, EventArgs e)
         {
             // Base command where each element gets replaced
-            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
+            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {quality} -an ";
             String commandPass1 = "-pass 1 -f webm NUL";
             String commandPass2 = "-pass 2 ";
             String filterCommands = null;
@@ -170,6 +170,16 @@ namespace MasterOfWebM
             else
             {
                 baseCommand = baseCommand.Replace(" {scale}", "");
+            }
+
+            switch (comboQuality.Text)
+            {
+                case "Good":
+                    baseCommand = baseCommand.Replace("{quality}", "-quality good -cpu-used 0");
+                    break;
+                case "Best":
+                    baseCommand = baseCommand.Replace("{quality}", "-quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8");
+                    break;
             }
 
             // If everything is valid, continue with the conversion

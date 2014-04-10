@@ -203,6 +203,9 @@ namespace MasterOfWebM
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Debug.WriteLine(ex);
                 }
+
+                // Clears the output box so user's don't overwrite their previous output
+                txtOutput.Text = null;
             }
 
         }

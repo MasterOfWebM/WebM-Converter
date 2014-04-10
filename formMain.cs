@@ -23,6 +23,7 @@ namespace MasterOfWebM
         Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");     // Regex to verify if txtStartTime is properly typed in
         Regex verifyWidth = new Regex(@"^\d{1,4}");                         // Regex to verify if txtWidth is properly typed in
         Regex verifyMaxSize = new Regex(@"^\d{1,4}");                       // Regex to verify if txtMaxSize is properly typed in
+        Regex verifyCrop = new Regex(@"^\d{1,4}:\d{1,4}:\d{1,4}:\d{1,4}");  // Regex to verify if txtCrop is properly typed in
 
         // ********************
         //      Functions
@@ -59,9 +60,11 @@ namespace MasterOfWebM
             String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
             String commandPass1 = "-pass 1 -f webm NUL";
             String commandPass2 = "-pass 2 ";
+            String filterCommands = null;
 
             // Verification boolean just incase the user messes up
             bool verified = true;
+            bool filters = false;
 
             // Validates if the user input a value for txtInput
             if (txtInput.Text == "")
@@ -115,6 +118,22 @@ namespace MasterOfWebM
                 baseCommand = baseCommand.Replace("{length}", txtLength.Text);
             }
 
+            // Validates if the user input a value for txtCrop
+            if (!verifyCrop.IsMatch(txtCrop.Text))
+            {
+                if (txtCrop.Text != "o_w:o_h:x:y")
+                {
+                    verified = false;
+                    MessageBox.Show("The crop field is not properly set\nSyntax:\nout_x:out_y:x:y\n\nout_x & out_y is the output size\nx & y are where you begin your crop",
+                        "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                filters = true;
+                filterCommands = "crop=" + txtCrop.Text;
+            }
+
             // Validates if the user input a value for txtWidth
             if (!verifyWidth.IsMatch(txtWidth.Text))
             {
@@ -123,14 +142,11 @@ namespace MasterOfWebM
                     verified = false;
                     MessageBox.Show("The width is not properly set", "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else
-                {
-                    baseCommand = baseCommand.Replace(" {scale}", "");
-                }
             }
             else
             {
-                baseCommand = baseCommand.Replace("{scale}", "-vf scale=" + txtWidth.Text + ":-1");
+                filters = true;
+                filterCommands += filterCommands == null ? "scale=" + txtWidth.Text + ":-1" : ",scale=" + txtWidth.Text + ":-1";
             }
 
             // Validates if the user input a value for txtMaxSize
@@ -143,6 +159,17 @@ namespace MasterOfWebM
             {
                 String bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
                 baseCommand = baseCommand.Replace("{bitrate}", bitrate);
+            }
+
+            // If any filters are being used, add them to baseCommand
+            if (filters)
+            {
+                filterCommands = "-vf " + filterCommands;
+                baseCommand = baseCommand.Replace("{scale}", filterCommands);
+            }
+            else
+            {
+                baseCommand = baseCommand.Replace(" {scale}", "");
             }
 
             // If everything is valid, continue with the conversion
@@ -192,6 +219,30 @@ namespace MasterOfWebM
             lblThreads.Text = "Threads: " + THREADS;
             comboQuality.SelectedIndex = 0;
             Debug.WriteLine("Started");
+        }
+
+        // Handles when the user focuses txtCrop
+        private void txtCrop_Enter(object sender, EventArgs e)
+        {
+            txtCrop.Left -= 46;
+            txtCrop.Size = new System.Drawing.Size(115, 20);
+
+            if (txtCrop.Text == "o_w:o_h:x:y")
+            {
+                txtCrop.Text = "";
+            }
+        }
+
+        // Handles when the user unfocuses txtCrop
+        private void txtCrop_Leave(object sender, EventArgs e)
+        {
+            txtCrop.Left += 46;
+            txtCrop.Size = new System.Drawing.Size(69, 20);
+
+            if (txtCrop.Text == "")
+            {
+                txtCrop.Text = "o_w:o_h:x:y";
+            }
         }
     }
 }

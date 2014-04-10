@@ -48,7 +48,7 @@
             this.txtMaxSize = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCrop = new System.Windows.Forms.TextBox();
             this.comboQuality = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -226,16 +226,18 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Quality:";
             // 
-            // textBox1
+            // txtCrop
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.ForeColor = System.Drawing.Color.Silver;
-            this.textBox1.Location = new System.Drawing.Point(222, 90);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(69, 20);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "o_w:o_h:x:y";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCrop.ForeColor = System.Drawing.Color.Silver;
+            this.txtCrop.Location = new System.Drawing.Point(222, 90);
+            this.txtCrop.MaxLength = 19;
+            this.txtCrop.Name = "txtCrop";
+            this.txtCrop.Size = new System.Drawing.Size(69, 20);
+            this.txtCrop.TabIndex = 7;
+            this.txtCrop.Text = "o_w:o_h:x:y";
+            this.txtCrop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCrop.Enter += new System.EventHandler(this.txtCrop_Enter);
+            this.txtCrop.Leave += new System.EventHandler(this.txtCrop_Leave);
             // 
             // comboQuality
             // 
@@ -256,7 +258,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 194);
             this.Controls.Add(this.comboQuality);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtCrop);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnOutput);
             this.Controls.Add(this.txtWidth);
@@ -307,7 +309,7 @@
         private System.Windows.Forms.TextBox txtMaxSize;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCrop;
         private System.Windows.Forms.ToolStripStatusLabel lblThreads;
         private System.Windows.Forms.ComboBox comboQuality;
     }

@@ -53,7 +53,7 @@ namespace MasterOfWebM
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnConvert_Click(object sender, EventArgs e)
         {
             // Base command where each element gets replaced
             String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} -quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8 -an ";
@@ -170,7 +170,7 @@ namespace MasterOfWebM
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnInput_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -179,7 +179,7 @@ namespace MasterOfWebM
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnOutput_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {

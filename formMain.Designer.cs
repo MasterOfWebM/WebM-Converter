@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMain));
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnOutput = new System.Windows.Forms.Button();
+            this.btnInput = new System.Windows.Forms.Button();
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.txtInput = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -39,7 +39,7 @@
             this.txtTimeStart = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnConvert = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -53,25 +53,25 @@
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button2
+            // btnOutput
             // 
-            this.button2.Location = new System.Drawing.Point(11, 36);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(51, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Output";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnOutput.Location = new System.Drawing.Point(11, 36);
+            this.btnOutput.Name = "btnOutput";
+            this.btnOutput.Size = new System.Drawing.Size(51, 23);
+            this.btnOutput.TabIndex = 2;
+            this.btnOutput.Text = "Output";
+            this.btnOutput.UseVisualStyleBackColor = true;
+            this.btnOutput.Click += new System.EventHandler(this.btnOutput_Click);
             // 
-            // button1
+            // btnInput
             // 
-            this.button1.Location = new System.Drawing.Point(11, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(51, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Input";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnInput.Location = new System.Drawing.Point(11, 10);
+            this.btnInput.Name = "btnInput";
+            this.btnInput.Size = new System.Drawing.Size(51, 23);
+            this.btnInput.TabIndex = 1;
+            this.btnInput.Text = "Input";
+            this.btnInput.UseVisualStyleBackColor = true;
+            this.btnInput.Click += new System.EventHandler(this.btnInput_Click);
             // 
             // txtOutput
             // 
@@ -147,15 +147,15 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Time Start:";
             // 
-            // button3
+            // btnConvert
             // 
-            this.button3.Location = new System.Drawing.Point(105, 142);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Convert";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnConvert.Location = new System.Drawing.Point(105, 142);
+            this.btnConvert.Name = "btnConvert";
+            this.btnConvert.Size = new System.Drawing.Size(75, 23);
+            this.btnConvert.TabIndex = 9;
+            this.btnConvert.Text = "Convert";
+            this.btnConvert.UseVisualStyleBackColor = true;
+            this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
             // 
             // openFileDialog1
             // 
@@ -258,15 +258,15 @@
             this.Controls.Add(this.comboQuality);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnOutput);
             this.Controls.Add(this.txtWidth);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.txtLength);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnInput);
             this.Controls.Add(this.txtMaxSize);
             this.Controls.Add(this.txtTimeStart);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -289,15 +289,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOutput;
+        private System.Windows.Forms.Button btnInput;
         private System.Windows.Forms.TextBox txtOutput;
         private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.TextBox txtLength;
         private System.Windows.Forms.TextBox txtTimeStart;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnConvert;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label label5;

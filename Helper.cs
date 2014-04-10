@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,24 @@ namespace MasterOfWebM
         /// </summary>
         /// <param name="size">The requested file size in MB</param>
         /// <param name="length">The length of the footage in seconds</param>
-        /// <returns></returns>
+        /// <returns>The bitrate in kilobits</returns>
         public static String calcBitrate(String size, String length)
         {
             return Convert.ToString(Math.Floor(Convert.ToDouble(size) * BITCONVERSION / Convert.ToDouble(length))) + "K";
+        }
+
+        /// <summary>
+        /// Obtains the file size of a given file
+        /// </summary>
+        /// <param name="file">The file that needs to be calculated</param>
+        /// <returns>The file size of a given file</returns>
+        public static String getFileSize(String file)
+        {
+            FileInfo fi = new FileInfo(@file);
+
+            double fileSize = fi.Length;
+
+            return Convert.ToString(Math.Round(fileSize / 1024, 2));
         }
     }
 }

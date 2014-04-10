@@ -34,7 +34,7 @@ namespace MasterOfWebM
         }
 
         // As soon as the user clicks on txtTimeStart, get rid of the informational text
-        private void txtTimeStart_Click(object sender, EventArgs e)
+        private void txtTimeStart_Enter(object sender, EventArgs e)
         {
             if (txtTimeStart.Text == "HH:MM:SS")
             {
@@ -45,7 +45,7 @@ namespace MasterOfWebM
         }
 
         // Check if the user clicks away without typing anything into txtTimeStart
-        private void txtTimeStart_LostFocus(object sender, EventArgs e)
+        private void txtTimeStart_Leave(object sender, EventArgs e)
         {
             if (txtTimeStart.Text == "")
             {

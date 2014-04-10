@@ -126,8 +126,8 @@
             this.txtTimeStart.TabIndex = 3;
             this.txtTimeStart.Text = "HH:MM:SS";
             this.txtTimeStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtTimeStart.Click += new System.EventHandler(this.txtTimeStart_Click);
-            this.txtTimeStart.LostFocus += new System.EventHandler(this.txtTimeStart_LostFocus);
+            this.txtTimeStart.Enter += new System.EventHandler(this.txtTimeStart_Enter);
+            this.txtTimeStart.Leave += new System.EventHandler(this.txtTimeStart_Leave);
             // 
             // label4
             // 

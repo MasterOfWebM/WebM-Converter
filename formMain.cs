@@ -183,6 +183,9 @@ namespace MasterOfWebM
                 case "Best":
                     baseCommand = baseCommand.Replace("{quality}", "-quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8");
                     break;
+                case "Ultra":
+                    // TODO: Add a method to get the output as close to user specified filesize as possible
+                    break;
             }
 
             // If everything is valid, continue with the conversion
@@ -218,7 +221,6 @@ namespace MasterOfWebM
                         "This occured because the clip's resolution was too large,\n" + 
                         "and/or because the clip was too long for the inputted size.");
                 }
-
             }
 
             // Re-enable the button after a run
@@ -247,6 +249,8 @@ namespace MasterOfWebM
             lblThreads.Text = "Threads: " + THREADS;
             comboQuality.SelectedIndex = 0;
             Debug.WriteLine("Started");
+
+            // TODO: Find out of ffmpeg is installed <<EASY>>
         }
 
         // Handles when the user focuses txtCrop

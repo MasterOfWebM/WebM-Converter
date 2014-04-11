@@ -61,13 +61,13 @@ namespace MasterOfWebM
 
             // Base command where each element gets replaced
             String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {quality} -an ";
-            String commandPass1 = "-pass 1 -f webm NUL";
-            String commandPass2 = "-pass 2 ";
             String filterCommands = null;
 
             // Verification boolean just incase the user messes up
             bool verified = true;
             bool filters = false;
+
+            double bitrate = 0;
 
             // Validates if the user input a value for txtInput
             if (txtInput.Text == "")
@@ -160,8 +160,25 @@ namespace MasterOfWebM
             }
             else
             {
-                String bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
-                baseCommand = baseCommand.Replace("{bitrate}", bitrate);
+                bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
+
+                // Changes the quality to what the user selected
+                switch (comboQuality.Text)
+                {
+                    case "Good":
+                        baseCommand = baseCommand.Replace("{quality}", "-quality good -cpu-used 0");
+                        baseCommand = baseCommand.Replace("{bitrate}", bitrate.ToString() + "K");
+                        break;
+                    case "Best":
+                        baseCommand = baseCommand.Replace("{quality}", "-quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8");
+                        baseCommand = baseCommand.Replace("{bitrate}", bitrate.ToString() + "K");
+                        break;
+                    case "Ultra":
+                        baseCommand = baseCommand.Replace("{quality}", "-quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8");
+                        bitrate = Convert.ToDouble(bitrate) * 1024;
+                        baseCommand = baseCommand.Replace("{bitrate}", bitrate.ToString());
+                        break;
+                }
             }
 
             // If any filters are being used, add them to baseCommand
@@ -175,19 +192,6 @@ namespace MasterOfWebM
                 baseCommand = baseCommand.Replace(" {scale}", "");
             }
 
-            switch (comboQuality.Text)
-            {
-                case "Good":
-                    baseCommand = baseCommand.Replace("{quality}", "-quality good -cpu-used 0");
-                    break;
-                case "Best":
-                    baseCommand = baseCommand.Replace("{quality}", "-quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8");
-                    break;
-                case "Ultra":
-                    // TODO: Add a method to get the output as close to user specified filesize as possible
-                    break;
-            }
-
             // If everything is valid, continue with the conversion
             if (verified)
             {
@@ -195,13 +199,7 @@ namespace MasterOfWebM
                 
                 try
                 {
-                    // Pass 1
-                    var pass1 = Process.Start("ffmpeg", baseCommand + commandPass1);
-                    pass1.WaitForExit();
-
-                    // Pass 2
-                    var pass2 = Process.Start("ffmpeg", baseCommand + commandPass2 + "\"" + txtOutput.Text + "\"");
-                    pass2.WaitForExit();
+                    Helper.encodeVideo(baseCommand, txtOutput.Text);
                 }
                 catch (Win32Exception ex)
                 {
@@ -210,16 +208,55 @@ namespace MasterOfWebM
                     Debug.WriteLine(ex);
                 }
 
-                if (Helper.getFileSize(txtOutput.Text) < Convert.ToDouble(txtMaxSize.Text) * 1024)
+                double fileSize = Helper.getFileSize(txtOutput.Text);
+
+                if (fileSize < Convert.ToDouble(txtMaxSize.Text) * 1024)
                 {
                     // Clears the output box so user's don't overwrite their previous output
-                    txtOutput.Text = null;
+                    txtOutput.Text = "";
                 }
                 else
                 {
-                    MessageBox.Show("The final clip is larger than " + txtMaxSize.Text + "MB.\n" +
-                        "This occured because the clip's resolution was too large,\n" + 
-                        "and/or because the clip was too long for the inputted size.");
+                    if (comboQuality.Text == "Ultra")
+                    {
+                        /*
+                         * Automatically attempt to create a smaller file
+                         * If it doesn't work within 10 attempts, recommend
+                         * 'Best' quality
+                         */
+                        int passes = 0;
+
+                        while (fileSize > Convert.ToDouble(txtMaxSize.Text) * 1024 && passes <= 10)
+                        {
+                            // Lowers the bitrate by 1k
+                            bitrate -= 1000;
+
+                            // Replacing the whole command just in case the file name contains the same numbers
+                            baseCommand = baseCommand.Replace("-b:v " + (bitrate + 1000), "-b:v " + bitrate);
+
+                            Helper.encodeVideo(baseCommand, txtOutput.Text);
+                            passes++;
+
+                            // Gets the filesize after encoding
+                            fileSize = Helper.getFileSize(txtOutput.Text);
+                        }
+
+                        if (fileSize < Convert.ToDouble(txtMaxSize.Text) * 1024)
+                        {
+                            txtOutput.Text = "";
+                        }
+                        else
+                            MessageBox.Show("Could not get the file size below " + txtMaxSize.Text + "MB.\n" +
+                                "Try using 'Best' quality, and if that doesn't work,\n" +
+                                "you must reduce your resolution and/or shorten the length.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The final clip is larger than " + txtMaxSize.Text + "MB.\n" +
+                            "This occured because the clip's resolution was too large,\n" +
+                            "and/or because the clip was too long for the inputted size.");
+                    }
                 }
             }
 
@@ -249,8 +286,6 @@ namespace MasterOfWebM
             lblThreads.Text = "Threads: " + THREADS;
             comboQuality.SelectedIndex = 0;
             Debug.WriteLine("Started");
-
-            // TODO: Find out of ffmpeg is installed <<EASY>>
         }
 
         // Handles when the user focuses txtCrop

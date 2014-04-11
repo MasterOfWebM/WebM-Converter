@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,9 +28,9 @@ namespace MasterOfWebM
         /// <param name="size">The requested file size in MB</param>
         /// <param name="length">The length of the footage in seconds</param>
         /// <returns>The bitrate in kilobits</returns>
-        public static String calcBitrate(String size, String length)
+        public static double calcBitrate(String size, String length)
         {
-            return Convert.ToString(Math.Floor(Convert.ToDouble(size) * BITCONVERSION / Convert.ToDouble(length))) + "K";
+            return Math.Floor(Convert.ToDouble(size) * BITCONVERSION / Convert.ToDouble(length));
         }
 
         /// <summary>
@@ -44,6 +45,25 @@ namespace MasterOfWebM
             double fileSize = fi.Length;
 
             return Math.Round(fileSize / 1024, 2);
+        }
+
+        /// <summary>
+        /// Calls ffmpeg to encode the video
+        /// </summary>
+        /// <param name="command">The base command string (passes are entered automatically by this class)</param>
+        /// <param name="fileOutput">The path to the output</param>
+        public static void encodeVideo(String command, String fileOutput)
+        {
+            String commandPass1 = "-pass 1 -f webm NUL";
+            String commandPass2 = "-pass 2 ";
+
+            // Pass 1
+            var pass1 = Process.Start("ffmpeg", command + commandPass1);
+            pass1.WaitForExit();
+
+            // Pass 2
+            var pass2 = Process.Start("ffmpeg", command + commandPass2 + "\"" + fileOutput + "\"");
+            pass2.WaitForExit();
         }
     }
 }

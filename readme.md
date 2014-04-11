@@ -1,7 +1,7 @@
 #!WebM.y.TsM's WebM Converter
-This is a simple wrapper for [FFmpeg](http://www.ffmpeg.org/download.html) to create WebM files. My version is generally among the best, due to my experience with encoding videos for years. To download it, please click [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.0/Release_v0.2.0.zip), [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.0/Release_v0.2.0.zip), or [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.0/Release_v0.2.0.zip).
+This is a simple wrapper for [FFmpeg](http://www.ffmpeg.org/download.html) to create WebM files. My version is generally among the best, due to my experience with encoding videos for years. To download it, please click [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.8.2/Release_v0.2.8.2.zip), [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.8.2/Release_v0.2.8.2.zip), or [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.8.2/Release_v0.2.8.2.zip).
 
-Make sure that you have your own FFmpeg in the root directory of the program, otherwise nothing will happen. Better yet, it should be within your System Variable, but whatever.
+Make sure that you have your own FFmpeg in the root directory of the program, otherwise nothing will happen. Better yet, FFmpeg should be within your System Variable, but whatever.
 
 ##What can it do?
 This is what she looks like:
@@ -16,6 +16,7 @@ Currently she can:
 * Scale the video
 * Crop the video
 * Seek to a custom time
+* Obtain encredibly close results in file size (currently limited support)
 
 ##Why only offer 2-pass?
 Currently it is only offered since this is designed as a GUI for 4chan users. 2-pass encoding will look better than crf with q-min/max 95% of the time, since 2-pass is designed to get the best quality for a given size. In the future, I wish to make a complete WebM wrapper, and even maybe a complete FFmpeg wrapper.

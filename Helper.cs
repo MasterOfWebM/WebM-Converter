@@ -37,13 +37,13 @@ namespace MasterOfWebM
         /// </summary>
         /// <param name="file">The file that needs to be calculated</param>
         /// <returns>The file size of a given file</returns>
-        public static String getFileSize(String file)
+        public static double getFileSize(String file)
         {
             FileInfo fi = new FileInfo(@file);
 
             double fileSize = fi.Length;
 
-            return Convert.ToString(Math.Round(fileSize / 1024, 2));
+            return Math.Round(fileSize / 1024, 2);
         }
     }
 }

@@ -160,8 +160,26 @@ namespace MasterOfWebM
             }
             else
             {
-                String bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
-                baseCommand = baseCommand.Replace("{bitrate}", bitrate);
+                double bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
+
+                // Changes the quality to what the user selected
+                switch (comboQuality.Text)
+                {
+                    case "Good":
+                        baseCommand = baseCommand.Replace("{quality}", "-quality good -cpu-used 0");
+                        baseCommand = baseCommand.Replace("{bitrate}", bitrate.ToString() + "K");
+                        break;
+                    case "Best":
+                        baseCommand = baseCommand.Replace("{quality}", "-quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8");
+                        baseCommand = baseCommand.Replace("{bitrate}", bitrate.ToString() + "K");
+                        break;
+                    case "Ultra":
+                        // TODO: Add a method to get the output as close to user specified filesize as possible
+                        baseCommand = baseCommand.Replace("{quality}", "-quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8");
+                        bitrate = Convert.ToDouble(bitrate) * 1024;
+                        baseCommand = baseCommand.Replace("{bitrate}", bitrate.ToString());
+                        break;
+                }
             }
 
             // If any filters are being used, add them to baseCommand
@@ -173,19 +191,6 @@ namespace MasterOfWebM
             else
             {
                 baseCommand = baseCommand.Replace(" {scale}", "");
-            }
-
-            switch (comboQuality.Text)
-            {
-                case "Good":
-                    baseCommand = baseCommand.Replace("{quality}", "-quality good -cpu-used 0");
-                    break;
-                case "Best":
-                    baseCommand = baseCommand.Replace("{quality}", "-quality best -auto-alt-ref 1 -lag-in-frames 16 -slices 8");
-                    break;
-                case "Ultra":
-                    // TODO: Add a method to get the output as close to user specified filesize as possible
-                    break;
             }
 
             // If everything is valid, continue with the conversion

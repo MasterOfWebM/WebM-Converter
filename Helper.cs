@@ -27,9 +27,9 @@ namespace MasterOfWebM
         /// <param name="size">The requested file size in MB</param>
         /// <param name="length">The length of the footage in seconds</param>
         /// <returns>The bitrate in kilobits</returns>
-        public static String calcBitrate(String size, String length)
+        public static double calcBitrate(String size, String length)
         {
-            return Convert.ToString(Math.Floor(Convert.ToDouble(size) * BITCONVERSION / Convert.ToDouble(length))) + "K";
+            return Math.Floor(Convert.ToDouble(size) * BITCONVERSION / Convert.ToDouble(length));
         }
 
         /// <summary>

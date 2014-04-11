@@ -243,6 +243,7 @@
             this.comboQuality.FormattingEnabled = true;
             this.comboQuality.Items.AddRange(new object[] {
             "Best",
+            "Ultra",
             "Good"});
             this.comboQuality.Location = new System.Drawing.Point(222, 116);
             this.comboQuality.Name = "comboQuality";

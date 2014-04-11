@@ -159,13 +159,13 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Video Files (*.mp4,*.mkv,*.avi)|*.mp4;*.mkv;*.avi|All Files (*.*)|*.*";
             this.openFileDialog1.RestoreDirectory = true;
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.DefaultExt = "webm";
+            this.saveFileDialog1.FileName = "out.webm";
             this.saveFileDialog1.Filter = "WebM File (*.webm)|*.webm";
             this.saveFileDialog1.RestoreDirectory = true;
             // 

@@ -207,8 +207,18 @@ namespace MasterOfWebM
                     Debug.WriteLine(ex);
                 }
 
-                // Clears the output box so user's don't overwrite their previous output
-                txtOutput.Text = null;
+                if (Helper.getFileSize(txtOutput.Text) < Convert.ToDouble(txtMaxSize.Text) * 1024)
+                {
+                    // Clears the output box so user's don't overwrite their previous output
+                    txtOutput.Text = null;
+                }
+                else
+                {
+                    MessageBox.Show("The final clip is larger than " + txtMaxSize.Text + "MB.\n" +
+                        "This occured because the clip's resolution was too large,\n" + 
+                        "and/or because the clip was too long for the inputted size.");
+                }
+
             }
 
             // Re-enable the button after a run

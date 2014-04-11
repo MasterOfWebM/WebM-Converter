@@ -11,6 +11,8 @@ This is what she looks like:
 Currently she can:
 
 * Automatically calculate the bitrate needed for a given size
+* Checks the size of the outputted video to see if it worked properly
+  * If it didn't, then it gives recommendations to fix the file size
 * Scale the video
 * Crop the video
 * Seek to a custom time
@@ -33,8 +35,6 @@ Irony.
 Plenty of stuff is planned:
 
 * Ability to use subtitles
-* Check the size of the outputted video to see if it worked properly
-  * If it didn't, then give recommendations to the user to fix it
 * Update check
 * Drag and Drop
 * Preview (general and crop)

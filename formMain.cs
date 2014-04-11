@@ -249,8 +249,6 @@ namespace MasterOfWebM
             lblThreads.Text = "Threads: " + THREADS;
             comboQuality.SelectedIndex = 0;
             Debug.WriteLine("Started");
-
-            // TODO: Find out of ffmpeg is installed <<EASY>>
         }
 
         // Handles when the user focuses txtCrop

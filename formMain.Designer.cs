@@ -52,6 +52,7 @@
             this.comboQuality = new System.Windows.Forms.ComboBox();
             this.btnSubs = new System.Windows.Forms.Button();
             this.txtSubs = new System.Windows.Forms.TextBox();
+            this.subsFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -269,6 +270,11 @@
             this.txtSubs.Size = new System.Drawing.Size(216, 20);
             this.txtSubs.TabIndex = 11;
             // 
+            // subsFileDialog
+            // 
+            this.subsFileDialog.Filter = "SubStation Alpha Subtitles (*.ass)|*.ass|SubRip Text (*.srt)|*.srt";
+            this.subsFileDialog.RestoreDirectory = true;
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,6 +339,7 @@
         private System.Windows.Forms.ComboBox comboQuality;
         private System.Windows.Forms.Button btnSubs;
         private System.Windows.Forms.TextBox txtSubs;
+        private System.Windows.Forms.OpenFileDialog subsFileDialog;
     }
 }
 

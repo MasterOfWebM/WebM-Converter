@@ -261,6 +261,7 @@
             this.btnSubs.TabIndex = 10;
             this.btnSubs.Text = "Subs";
             this.btnSubs.UseVisualStyleBackColor = true;
+            this.btnSubs.Click += new System.EventHandler(this.btnSubs_Click);
             // 
             // txtSubs
             // 

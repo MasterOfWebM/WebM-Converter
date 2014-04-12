@@ -311,5 +311,13 @@ namespace MasterOfWebM
                 txtCrop.Text = "o_w:o_h:x:y";
             }
         }
+
+        private void btnSubs_Click(object sender, EventArgs e)
+        {
+            if (subsFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtSubs.Text = subsFileDialog.FileName;
+            }
+        }
     }
 }

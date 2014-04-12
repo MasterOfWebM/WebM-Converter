@@ -266,9 +266,9 @@ namespace MasterOfWebM
 
         private void btnInput_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (inputFileDialog.ShowDialog() == DialogResult.OK)
             {
-                txtInput.Text = openFileDialog1.FileName;
+                txtInput.Text = inputFileDialog.FileName;
             }
 
         }

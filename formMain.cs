@@ -334,10 +334,7 @@ namespace MasterOfWebM
                 btnConvert.Enabled = false;
             }
 
-            if (!Helper.checkUpdate())
-            {
-                MessageBox.Show("Out of date");
-            }
+            Helper.checkUpdate();
         }
 
         // Handles when the user focuses txtCrop

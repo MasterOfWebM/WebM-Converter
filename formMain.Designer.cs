@@ -53,6 +53,7 @@
             this.btnSubs = new System.Windows.Forms.Button();
             this.txtSubs = new System.Windows.Forms.TextBox();
             this.subsFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.btnClear = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -152,7 +153,7 @@
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(105, 169);
+            this.btnConvert.Location = new System.Drawing.Point(42, 172);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(75, 23);
             this.btnConvert.TabIndex = 9;
@@ -276,11 +277,22 @@
             this.subsFileDialog.Filter = "SubStation Alpha Subtitles (*.ass)|*.ass|SubRip Text (*.srt)|*.srt";
             this.subsFileDialog.RestoreDirectory = true;
             // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(186, 172);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 12;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.button1_Click);
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 220);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.txtSubs);
             this.Controls.Add(this.btnSubs);
             this.Controls.Add(this.comboQuality);
@@ -341,6 +353,7 @@
         private System.Windows.Forms.Button btnSubs;
         private System.Windows.Forms.TextBox txtSubs;
         private System.Windows.Forms.OpenFileDialog subsFileDialog;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 

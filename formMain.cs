@@ -97,8 +97,18 @@ namespace MasterOfWebM
 
                 if (seconds > 30)
                 {
-                    baseCommand = baseCommand.Replace("{time1}", "-ss " + Convert.ToString(seconds - 30));
-                    baseCommand = baseCommand.Replace("{time2}", "-ss 30");
+                    if (txtSubs.Text == "")
+                    {
+                        // If not subtitles exist
+                        baseCommand = baseCommand.Replace("{time1}", "-ss " + Convert.ToString(seconds - 30));
+                        baseCommand = baseCommand.Replace("{time2}", "-ss 30");
+                    }
+                    else
+                    {
+                        // If subtitles exist
+                        baseCommand = baseCommand.Replace(" {time1}", "");
+                        baseCommand = baseCommand.Replace("{time2}", "-ss " + Convert.ToString(seconds));
+                    }
                 }
                 else
                 {

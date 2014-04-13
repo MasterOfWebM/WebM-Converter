@@ -178,7 +178,7 @@ namespace MasterOfWebM
             }
         }
 
-        public static bool checkUpdate()
+        public static void checkUpdate()
         {
             try
             {
@@ -228,9 +228,12 @@ namespace MasterOfWebM
             Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             if (appVersion.CompareTo(newVersion) < 0)
-                return false;
-            else
-                return true;
+            {
+                if (MessageBox.Show("You are currently out of date.\nWould you like to update now?", "Version out of date", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    var update = Process.Start(downloadUrl);
+                }
+            }
         }
     }
 }

@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace MasterOfWebM
 {
     class Helper
     {
         private const int BITCONVERSION = 8 * 1024;                         // Converts the filesize to Kilobits
+
+        // Version check variables
+        private static String downloadUrl = "";
+        private static Version newVersion = null;
+        private static String xmlUrl = "https://raw.githubusercontent.com/MasterOfWebM/WebM-Converter/master/update.xml";
+        private static XmlTextReader reader = null;
 
         /// <summary>
         /// This function intakes the time format, so it can convert it to flat seconds
@@ -168,6 +176,61 @@ namespace MasterOfWebM
                     }
                 }
             }
+        }
+
+        public static bool checkUpdate()
+        {
+            try
+            {
+                reader = new XmlTextReader(xmlUrl);
+                reader.MoveToContent();
+                string elementName = "";
+
+                if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "webmconverter"))
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.NodeType == XmlNodeType.Element)
+                        {
+                            elementName = reader.Name;
+                        }
+                        else
+                        {
+                            if ((reader.NodeType == XmlNodeType.Text) && (reader.HasValue))
+                            {
+                                switch (elementName)
+                                {
+                                    case "version":
+                                        newVersion = new Version(reader.Value);
+                                        break;
+                                    case "url":
+                                        downloadUrl = reader.Value;
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Error out to not disrupt the user
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+            }
+
+            Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+            if (appVersion.CompareTo(newVersion) < 0)
+                return false;
+            else
+                return true;
         }
     }
 }

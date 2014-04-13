@@ -57,7 +57,7 @@ namespace MasterOfWebM
             btnConvert.Enabled = false;
 
             // Base command where each element gets replaced
-            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {quality} -an ";
+            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {quality} {audio} ";
             String filterCommands = null;
 
             // Verification boolean just incase the user messes up
@@ -187,6 +187,19 @@ namespace MasterOfWebM
             {
                 bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
 
+                // If audio is requested
+                if (checkAudio.Checked)
+                {
+                    // TODO: Give bitrate options for audio (currently enforcing 48k)
+                    // TODO: Disable audio encoding on first pass to speed up encoding
+                    bitrate -= 48;
+                    baseCommand = baseCommand.Replace("{audio}", "-c:a libvorbis -b:a 48k");
+                }
+                else
+                {
+                    baseCommand = baseCommand.Replace("{audio}", "-an");
+                }
+
                 // Changes the quality to what the user selected
                 switch (comboQuality.Text)
                 {
@@ -221,7 +234,7 @@ namespace MasterOfWebM
             if (verified)
             {
                 baseCommand = baseCommand.Replace("{threads}", THREADS);
-                
+
                 try
                 {
                     Helper.encodeVideo(baseCommand, txtOutput.Text);

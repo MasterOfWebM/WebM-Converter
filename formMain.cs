@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MasterOfWebM
@@ -17,13 +13,14 @@ namespace MasterOfWebM
         // ********************
         //      Variables
         // ********************
-        private String THREADS = Environment.ProcessorCount.ToString();                   // Obtains the number of threads the computer has
+        private String THREADS = Environment.ProcessorCount.ToString();             // Obtains the number of threads the computer has
+        private String runningDirectory = AppDomain.CurrentDomain.BaseDirectory;    // Obtains the root directory
 
-        Regex verifyLength = new Regex(@"^\d{1,3}");                        // Regex to verify if txtLength is properly typed in
-        Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");     // Regex to verify if txtStartTime is properly typed in
-        Regex verifyWidth = new Regex(@"^\d{1,4}");                         // Regex to verify if txtWidth is properly typed in
-        Regex verifyMaxSize = new Regex(@"^\d{1,4}");                       // Regex to verify if txtMaxSize is properly typed in
-        Regex verifyCrop = new Regex(@"^\d{1,4}:\d{1,4}:\d{1,4}:\d{1,4}");  // Regex to verify if txtCrop is properly typed in
+        Regex verifyLength = new Regex(@"^\d{1,3}");                                // Regex to verify if txtLength is properly typed in
+        Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");             // Regex to verify if txtStartTime is properly typed in
+        Regex verifyWidth = new Regex(@"^\d{1,4}");                                 // Regex to verify if txtWidth is properly typed in
+        Regex verifyMaxSize = new Regex(@"^\d{1,4}");                               // Regex to verify if txtMaxSize is properly typed in
+        Regex verifyCrop = new Regex(@"^\d{1,4}:\d{1,4}:\d{1,4}:\d{1,4}");          // Regex to verify if txtCrop is properly typed in
 
         // ********************
         //      Functions
@@ -60,7 +57,7 @@ namespace MasterOfWebM
             btnConvert.Enabled = false;
 
             // Base command where each element gets replaced
-            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {quality} -an ";
+            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {quality} {audio} ";
             String filterCommands = null;
 
             // Verification boolean just incase the user messes up
@@ -100,8 +97,18 @@ namespace MasterOfWebM
 
                 if (seconds > 30)
                 {
-                    baseCommand = baseCommand.Replace("{time1}", "-ss " + Convert.ToString(seconds - 30));
-                    baseCommand = baseCommand.Replace("{time2}", "-ss 30");
+                    if (txtSubs.Text == "")
+                    {
+                        // If not subtitles exist
+                        baseCommand = baseCommand.Replace("{time1}", "-ss " + Convert.ToString(seconds - 30));
+                        baseCommand = baseCommand.Replace("{time2}", "-ss 30");
+                    }
+                    else
+                    {
+                        // If subtitles exist
+                        baseCommand = baseCommand.Replace(" {time1}", "");
+                        baseCommand = baseCommand.Replace("{time2}", "-ss " + Convert.ToString(seconds));
+                    }
                 }
                 else
                 {
@@ -121,6 +128,24 @@ namespace MasterOfWebM
                 baseCommand = baseCommand.Replace("{length}", txtLength.Text);
             }
 
+            // Check if we need to add subtitles
+            if (txtSubs.Text != "")
+            {
+                switch (Path.GetExtension(txtSubs.Text))
+                {
+                    case ".ass":
+                        filters = true;
+                        File.Copy(txtSubs.Text, runningDirectory + "subs.ass");
+                        filterCommands += filterCommands == null ? "ass=subs.ass" : ",ass=subs.ass";
+                        break;
+                    case ".srt":
+                        filters = true;
+                        File.Copy(txtSubs.Text, runningDirectory + "subs.srt");
+                        filterCommands += filterCommands == null ? "subtitles=subs.srt" : ",subtitles=subs.srt";
+                        break;
+                }
+            }
+
             // Validates if the user input a value for txtCrop
             if (!verifyCrop.IsMatch(txtCrop.Text))
             {
@@ -134,7 +159,7 @@ namespace MasterOfWebM
             else
             {
                 filters = true;
-                filterCommands = "crop=" + txtCrop.Text;
+                filterCommands += filterCommands == null ? "crop=" + txtCrop.Text : ",crop=" + txtCrop.Text;
             }
 
             // Validates if the user input a value for txtWidth
@@ -161,6 +186,19 @@ namespace MasterOfWebM
             else
             {
                 bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
+
+                // If audio is requested
+                if (checkAudio.Checked)
+                {
+                    // TODO: Give bitrate options for audio (currently enforcing 48k)
+                    // TODO: Disable audio encoding on first pass to speed up encoding
+                    bitrate -= 48;
+                    baseCommand = baseCommand.Replace("{audio}", "-c:a libvorbis -b:a 48k");
+                }
+                else
+                {
+                    baseCommand = baseCommand.Replace("{audio}", "-an");
+                }
 
                 // Changes the quality to what the user selected
                 switch (comboQuality.Text)
@@ -196,7 +234,7 @@ namespace MasterOfWebM
             if (verified)
             {
                 baseCommand = baseCommand.Replace("{threads}", THREADS);
-                
+
                 try
                 {
                     Helper.encodeVideo(baseCommand, txtOutput.Text);
@@ -214,6 +252,19 @@ namespace MasterOfWebM
                 {
                     // Clears the output box so user's don't overwrite their previous output
                     txtOutput.Text = "";
+                    if (txtSubs.Text != "")
+                    {
+                        switch (Path.GetExtension(txtSubs.Text))
+                        {
+                            case ".ass":
+                                File.Delete(runningDirectory + "\\subs.ass");
+                                break;
+                            case ".srt":
+                                File.Delete(runningDirectory + "\\subs.srt");
+                                break;
+                        }
+                        txtSubs.Text = "";
+                    }
                 }
                 else
                 {
@@ -244,6 +295,20 @@ namespace MasterOfWebM
                         if (fileSize < Convert.ToDouble(txtMaxSize.Text) * 1024)
                         {
                             txtOutput.Text = "";
+
+                            if (txtSubs.Text != "")
+                            {
+                                switch (Path.GetExtension(txtSubs.Text))
+                                {
+                                    case ".ass":
+                                        File.Delete(runningDirectory + "\\subs.ass");
+                                        break;
+                                    case ".srt":
+                                        File.Delete(runningDirectory + "\\subs.srt");
+                                        break;
+                                }
+                                txtSubs.Text = "";
+                            }
                         }
                         else
                             MessageBox.Show("Could not get the file size below " + txtMaxSize.Text + "MB.\n" +
@@ -266,9 +331,9 @@ namespace MasterOfWebM
 
         private void btnInput_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (inputFileDialog.ShowDialog() == DialogResult.OK)
             {
-                txtInput.Text = openFileDialog1.FileName;
+                txtInput.Text = inputFileDialog.FileName;
             }
 
         }
@@ -285,7 +350,14 @@ namespace MasterOfWebM
         {
             lblThreads.Text = "Threads: " + THREADS;
             comboQuality.SelectedIndex = 0;
-            Debug.WriteLine("Started");
+
+            // Calls the font config checker, and if something went wrong, it disables converting
+            if (!Helper.checkFFmpegFontConfig())
+            {
+                btnConvert.Enabled = false;
+            }
+
+            Helper.checkUpdate();
         }
 
         // Handles when the user focuses txtCrop
@@ -310,6 +382,25 @@ namespace MasterOfWebM
             {
                 txtCrop.Text = "o_w:o_h:x:y";
             }
+        }
+
+        private void btnSubs_Click(object sender, EventArgs e)
+        {
+            if (subsFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtSubs.Text = subsFileDialog.FileName;
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtInput.Text = txtOutput.Text = txtSubs.Text = txtLength.Text = txtWidth.Text = "";
+            txtTimeStart.Text = "HH:MM:SS";
+            txtTimeStart.ForeColor = Color.Silver;
+            txtMaxSize.Text = "3";
+            txtCrop.Text = "o_w:o_h:x:y";
+            txtCrop.ForeColor = Color.Silver;
+            comboQuality.SelectedIndex = 0;
         }
     }
 }

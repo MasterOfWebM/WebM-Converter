@@ -40,7 +40,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnConvert = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.inputFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblThreads = new System.Windows.Forms.ToolStripStatusLabel();
@@ -50,6 +50,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtCrop = new System.Windows.Forms.TextBox();
             this.comboQuality = new System.Windows.Forms.ComboBox();
+            this.btnSubs = new System.Windows.Forms.Button();
+            this.txtSubs = new System.Windows.Forms.TextBox();
+            this.subsFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.checkAudio = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,7 +98,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 119);
+            this.label5.Location = new System.Drawing.Point(17, 146);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 4;
@@ -100,7 +106,7 @@
             // 
             // txtWidth
             // 
-            this.txtWidth.Location = new System.Drawing.Point(75, 116);
+            this.txtWidth.Location = new System.Drawing.Point(75, 143);
             this.txtWidth.MaxLength = 4;
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(69, 20);
@@ -109,7 +115,7 @@
             // 
             // txtLength
             // 
-            this.txtLength.Location = new System.Drawing.Point(75, 90);
+            this.txtLength.Location = new System.Drawing.Point(75, 117);
             this.txtLength.MaxLength = 3;
             this.txtLength.Name = "txtLength";
             this.txtLength.Size = new System.Drawing.Size(69, 20);
@@ -119,7 +125,7 @@
             // txtTimeStart
             // 
             this.txtTimeStart.ForeColor = System.Drawing.Color.Silver;
-            this.txtTimeStart.Location = new System.Drawing.Point(75, 64);
+            this.txtTimeStart.Location = new System.Drawing.Point(75, 91);
             this.txtTimeStart.MaxLength = 8;
             this.txtTimeStart.Name = "txtTimeStart";
             this.txtTimeStart.Size = new System.Drawing.Size(69, 20);
@@ -132,7 +138,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 93);
+            this.label4.Location = new System.Drawing.Point(15, 120);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 1;
@@ -141,7 +147,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 67);
+            this.label3.Location = new System.Drawing.Point(7, 94);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 0;
@@ -149,7 +155,7 @@
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(105, 142);
+            this.btnConvert.Location = new System.Drawing.Point(41, 192);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(75, 23);
             this.btnConvert.TabIndex = 9;
@@ -157,10 +163,10 @@
             this.btnConvert.UseVisualStyleBackColor = true;
             this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
             // 
-            // openFileDialog1
+            // inputFileDialog
             // 
-            this.openFileDialog1.Filter = "Video Files (*.mp4,*.mkv,*.avi)|*.mp4;*.mkv;*.avi|All Files (*.*)|*.*";
-            this.openFileDialog1.RestoreDirectory = true;
+            this.inputFileDialog.Filter = "Video Files (*.mp4,*.mkv,*.avi)|*.mp4;*.mkv;*.avi|All Files (*.*)|*.*";
+            this.inputFileDialog.RestoreDirectory = true;
             // 
             // saveFileDialog1
             // 
@@ -173,7 +179,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblThreads});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 172);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 222);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(303, 22);
             this.statusStrip1.SizingGrip = false;
@@ -189,7 +195,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(156, 67);
+            this.label1.Location = new System.Drawing.Point(156, 94);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
@@ -198,7 +204,7 @@
             // txtMaxSize
             // 
             this.txtMaxSize.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtMaxSize.Location = new System.Drawing.Point(222, 64);
+            this.txtMaxSize.Location = new System.Drawing.Point(222, 91);
             this.txtMaxSize.MaxLength = 4;
             this.txtMaxSize.Name = "txtMaxSize";
             this.txtMaxSize.Size = new System.Drawing.Size(69, 20);
@@ -209,7 +215,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(166, 93);
+            this.label2.Location = new System.Drawing.Point(166, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 0;
@@ -218,7 +224,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(161, 119);
+            this.label6.Location = new System.Drawing.Point(161, 146);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 13);
             this.label6.TabIndex = 0;
@@ -227,7 +233,7 @@
             // txtCrop
             // 
             this.txtCrop.ForeColor = System.Drawing.Color.Silver;
-            this.txtCrop.Location = new System.Drawing.Point(222, 90);
+            this.txtCrop.Location = new System.Drawing.Point(222, 117);
             this.txtCrop.MaxLength = 19;
             this.txtCrop.Name = "txtCrop";
             this.txtCrop.Size = new System.Drawing.Size(69, 20);
@@ -245,16 +251,72 @@
             "Best",
             "Ultra",
             "Good"});
-            this.comboQuality.Location = new System.Drawing.Point(222, 116);
+            this.comboQuality.Location = new System.Drawing.Point(222, 143);
             this.comboQuality.Name = "comboQuality";
             this.comboQuality.Size = new System.Drawing.Size(69, 21);
             this.comboQuality.TabIndex = 8;
+            // 
+            // btnSubs
+            // 
+            this.btnSubs.Location = new System.Drawing.Point(11, 62);
+            this.btnSubs.Name = "btnSubs";
+            this.btnSubs.Size = new System.Drawing.Size(51, 23);
+            this.btnSubs.TabIndex = 10;
+            this.btnSubs.Text = "Subs";
+            this.btnSubs.UseVisualStyleBackColor = true;
+            this.btnSubs.Click += new System.EventHandler(this.btnSubs_Click);
+            // 
+            // txtSubs
+            // 
+            this.txtSubs.Location = new System.Drawing.Point(75, 64);
+            this.txtSubs.Name = "txtSubs";
+            this.txtSubs.ReadOnly = true;
+            this.txtSubs.Size = new System.Drawing.Size(216, 20);
+            this.txtSubs.TabIndex = 11;
+            // 
+            // subsFileDialog
+            // 
+            this.subsFileDialog.Filter = "SubStation Alpha Subtitles (*.ass)|*.ass|SubRip Text (*.srt)|*.srt";
+            this.subsFileDialog.RestoreDirectory = true;
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(189, 192);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 12;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(164, 172);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(37, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Audio:";
+            // 
+            // checkAudio
+            // 
+            this.checkAudio.AutoSize = true;
+            this.checkAudio.Location = new System.Drawing.Point(249, 172);
+            this.checkAudio.Name = "checkAudio";
+            this.checkAudio.Size = new System.Drawing.Size(15, 14);
+            this.checkAudio.TabIndex = 14;
+            this.checkAudio.UseVisualStyleBackColor = true;
             // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 194);
+            this.ClientSize = new System.Drawing.Size(303, 244);
+            this.Controls.Add(this.checkAudio);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.txtSubs);
+            this.Controls.Add(this.btnSubs);
             this.Controls.Add(this.comboQuality);
             this.Controls.Add(this.txtCrop);
             this.Controls.Add(this.label5);
@@ -298,7 +360,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnConvert;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog inputFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtWidth;
@@ -310,6 +372,12 @@
         private System.Windows.Forms.TextBox txtCrop;
         private System.Windows.Forms.ToolStripStatusLabel lblThreads;
         private System.Windows.Forms.ComboBox comboQuality;
+        private System.Windows.Forms.Button btnSubs;
+        private System.Windows.Forms.TextBox txtSubs;
+        private System.Windows.Forms.OpenFileDialog subsFileDialog;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkAudio;
     }
 }
 

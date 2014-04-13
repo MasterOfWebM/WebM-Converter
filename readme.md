@@ -1,18 +1,20 @@
 #!WebM.y.TsM's WebM Converter
-This is a simple wrapper for [FFmpeg](http://www.ffmpeg.org/download.html) to create WebM files. My version is generally among the best, due to my experience with encoding videos for years. To download it, please click [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.8.2/Release_v0.2.8.2.zip), [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.8.2/Release_v0.2.8.2.zip), or [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v0.2.8.2/Release_v0.2.8.2.zip).
+This is a simple wrapper for [FFmpeg](http://www.ffmpeg.org/download.html) to create WebM files. My version is generally among the best, due to my experience with encoding videos for years. To download it, please click [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v1.0.0/Release_v1.0.0.zip), [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v1.0.0/Release_v1.0.0.zip), or [here](https://github.com/MasterOfWebM/WebM-Converter/releases/download/v1.0.0/Release_v1.0.0.zip).
 
 Make sure that you have your own FFmpeg in the root directory of the program, otherwise nothing will happen. Better yet, FFmpeg should be within your System Variable, but whatever.
 
 ##What can it do?
 This is what she looks like:
 
-![alt text](http://i.imgur.com/3JrzQjJ.png)
+![alt text](http://i.imgur.com/0W5nKKI.png)
 
 Currently she can:
 
 * Automatically calculate the bitrate needed for a given size
 * Checks the size of the outputted video to see if it worked properly
   * If it didn't, then it gives recommendations to fix the file size
+* Ability to use subtitles
+* Update check
 * Scale the video
 * Crop the video
 * Seek to a custom time
@@ -35,8 +37,6 @@ Irony.
 ##What is planned?
 Plenty of stuff is planned:
 
-* Ability to use subtitles
-* Update check
 * Drag and Drop
 * Preview (general and crop)
 * Plenty of more stuff

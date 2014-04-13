@@ -18,13 +18,14 @@ namespace MasterOfWebM
         // ********************
         //      Variables
         // ********************
-        private String THREADS = Environment.ProcessorCount.ToString();                   // Obtains the number of threads the computer has
+        private String THREADS = Environment.ProcessorCount.ToString();             // Obtains the number of threads the computer has
+        private String runningDirectory = AppDomain.CurrentDomain.BaseDirectory;    // Obtains the root directory
 
-        Regex verifyLength = new Regex(@"^\d{1,3}");                        // Regex to verify if txtLength is properly typed in
-        Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");     // Regex to verify if txtStartTime is properly typed in
-        Regex verifyWidth = new Regex(@"^\d{1,4}");                         // Regex to verify if txtWidth is properly typed in
-        Regex verifyMaxSize = new Regex(@"^\d{1,4}");                       // Regex to verify if txtMaxSize is properly typed in
-        Regex verifyCrop = new Regex(@"^\d{1,4}:\d{1,4}:\d{1,4}:\d{1,4}");  // Regex to verify if txtCrop is properly typed in
+        Regex verifyLength = new Regex(@"^\d{1,3}");                                // Regex to verify if txtLength is properly typed in
+        Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");             // Regex to verify if txtStartTime is properly typed in
+        Regex verifyWidth = new Regex(@"^\d{1,4}");                                 // Regex to verify if txtWidth is properly typed in
+        Regex verifyMaxSize = new Regex(@"^\d{1,4}");                               // Regex to verify if txtMaxSize is properly typed in
+        Regex verifyCrop = new Regex(@"^\d{1,4}:\d{1,4}:\d{1,4}:\d{1,4}");          // Regex to verify if txtCrop is properly typed in
 
         // ********************
         //      Functions
@@ -122,6 +123,24 @@ namespace MasterOfWebM
                 baseCommand = baseCommand.Replace("{length}", txtLength.Text);
             }
 
+            // Check if we need to add subtitles
+            if (txtSubs.Text != "")
+            {
+                switch (Path.GetExtension(txtSubs.Text))
+                {
+                    case ".ass":
+                        filters = true;
+                        File.Copy(txtSubs.Text, runningDirectory + "subs.ass");
+                        filterCommands += filterCommands == null ? "ass=subs.ass" : ",ass=subs.ass";
+                        break;
+                    case ".srt":
+                        filters = true;
+                        File.Copy(txtSubs.Text, runningDirectory + "subs.srt");
+                        filterCommands += filterCommands == null ? "subtitles=subs.srt" : ",subtitles=subs.srt";
+                        break;
+                }
+            }
+
             // Validates if the user input a value for txtCrop
             if (!verifyCrop.IsMatch(txtCrop.Text))
             {
@@ -135,7 +154,7 @@ namespace MasterOfWebM
             else
             {
                 filters = true;
-                filterCommands = "crop=" + txtCrop.Text;
+                filterCommands += filterCommands == null ? "crop=" + txtCrop.Text : ",crop=" + txtCrop.Text;
             }
 
             // Validates if the user input a value for txtWidth
@@ -215,6 +234,19 @@ namespace MasterOfWebM
                 {
                     // Clears the output box so user's don't overwrite their previous output
                     txtOutput.Text = "";
+                    if (txtSubs.Text != "")
+                    {
+                        switch (Path.GetExtension(txtSubs.Text))
+                        {
+                            case ".ass":
+                                File.Delete(runningDirectory + "\\subs.ass");
+                                break;
+                            case ".srt":
+                                File.Delete(runningDirectory + "\\subs.srt");
+                                break;
+                        }
+                        txtSubs.Text = "";
+                    }
                 }
                 else
                 {
@@ -245,6 +277,20 @@ namespace MasterOfWebM
                         if (fileSize < Convert.ToDouble(txtMaxSize.Text) * 1024)
                         {
                             txtOutput.Text = "";
+
+                            if (txtSubs.Text != "")
+                            {
+                                switch (Path.GetExtension(txtSubs.Text))
+                                {
+                                    case ".ass":
+                                        File.Delete(runningDirectory + "\\subs.ass");
+                                        break;
+                                    case ".srt":
+                                        File.Delete(runningDirectory + "\\subs.srt");
+                                        break;
+                                }
+                                txtSubs.Text = "";
+                            }
                         }
                         else
                             MessageBox.Show("Could not get the file size below " + txtMaxSize.Text + "MB.\n" +

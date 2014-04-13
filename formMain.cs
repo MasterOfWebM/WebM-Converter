@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -285,7 +286,12 @@ namespace MasterOfWebM
         {
             lblThreads.Text = "Threads: " + THREADS;
             comboQuality.SelectedIndex = 0;
-            Debug.WriteLine("Started");
+
+            // Calls the font config checker, and if something went wrong, it disables converting
+            if (!Helper.checkFFmpegFontConfig())
+            {
+                btnConvert.Enabled = false;
+            }
         }
 
         // Handles when the user focuses txtCrop

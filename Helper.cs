@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MasterOfWebM
 {
@@ -64,6 +65,109 @@ namespace MasterOfWebM
             // Pass 2
             var pass2 = Process.Start("ffmpeg", command + commandPass2 + "\"" + fileOutput + "\"");
             pass2.WaitForExit();
+        }
+
+        /// <summary>
+        /// Checks to see if ffmpeg has a font.conf installed, and if it doesn't
+        /// it will install one for the user to support subtitles
+        /// </summary>
+        /// <returns>If the current FFmpeg installation has a font config installed</returns>
+        public static bool checkFFmpegFontConfig()
+        {
+            // Spawn process to check if ffmpeg is installed and find out where it is
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.FileName = "cmd";
+            p.StartInfo.Arguments = "/k where ffmpeg & exit";
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
+
+            string output = p.StandardOutput.ReadToEnd();
+
+            p.WaitForExit();
+
+            if (output == "")
+            {
+                MessageBox.Show("FFmpeg is not installed, please either put it in the same directory\n"+
+                                "as this program or in your 'PATH' Environment Variable.", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return false;
+            }
+            else
+            {
+                // Get rid of the newline at the end of the output
+                output = output.Replace(Environment.NewLine, "");
+
+                // Get the root directory of ffmpeg
+                output = Path.GetDirectoryName(@output);
+
+                if (File.Exists(output + "\\fonts\\fonts.conf"))
+                {
+                    return true;
+                }
+                else
+                {
+                    if (Directory.Exists(output + "\\fonts"))
+                    {
+                        // If the directory actually exists, just write the config file
+                        try
+                        {
+                            File.Copy("fonts\\fonts.conf", output + "\\fonts\\fonts.conf");
+
+                            return true;
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex is UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("Failed to create the fonts config due to\n" +
+                                    "Unathorized Access. Please start this program with Administrator\n" +
+                                    "privileges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Something went wrong with writing the config\n" +
+                                "file. Please message Master Of WebM to figure it out.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // If neither the directory, or file exists, then create them both
+                        try
+                        {
+                            Directory.CreateDirectory(output + "\\fonts");
+                            File.Copy("fonts\\fonts.conf", output + "\\fonts\\fonts.conf");
+
+                            return true;
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex is UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("Failed to create the fonts config due to\n" +
+                                    "Unathorized Access. Please start this program with Administrator\n" +
+                                    "privileges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Something went wrong with writing the config\n" +
+                                "file. Please message Master Of WebM to figure it out.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

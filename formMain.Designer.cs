@@ -54,6 +54,8 @@
             this.txtSubs = new System.Windows.Forms.TextBox();
             this.subsFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnClear = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.checkAudio = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -153,7 +155,7 @@
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(42, 172);
+            this.btnConvert.Location = new System.Drawing.Point(41, 192);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(75, 23);
             this.btnConvert.TabIndex = 9;
@@ -177,7 +179,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblThreads});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 198);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 222);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(303, 22);
             this.statusStrip1.SizingGrip = false;
@@ -279,7 +281,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(186, 172);
+            this.btnClear.Location = new System.Drawing.Point(189, 192);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 12;
@@ -287,11 +289,31 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(164, 172);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(37, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Audio:";
+            // 
+            // checkAudio
+            // 
+            this.checkAudio.AutoSize = true;
+            this.checkAudio.Location = new System.Drawing.Point(249, 172);
+            this.checkAudio.Name = "checkAudio";
+            this.checkAudio.Size = new System.Drawing.Size(15, 14);
+            this.checkAudio.TabIndex = 14;
+            this.checkAudio.UseVisualStyleBackColor = true;
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 220);
+            this.ClientSize = new System.Drawing.Size(303, 244);
+            this.Controls.Add(this.checkAudio);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.txtSubs);
             this.Controls.Add(this.btnSubs);
@@ -354,6 +376,8 @@
         private System.Windows.Forms.TextBox txtSubs;
         private System.Windows.Forms.OpenFileDialog subsFileDialog;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkAudio;
     }
 }
 

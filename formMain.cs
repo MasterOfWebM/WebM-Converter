@@ -333,6 +333,11 @@ namespace MasterOfWebM
             {
                 btnConvert.Enabled = false;
             }
+
+            if (!Helper.checkUpdate())
+            {
+                MessageBox.Show("Out of date");
+            }
         }
 
         // Handles when the user focuses txtCrop

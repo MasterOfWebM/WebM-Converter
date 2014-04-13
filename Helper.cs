@@ -178,6 +178,11 @@ namespace MasterOfWebM
             }
         }
 
+        /// <summary>
+        /// Verifies the version of the program.
+        /// It will prompt the user if the program is
+        /// outdated.
+        /// </summary>
         public static void checkUpdate()
         {
             try
@@ -225,6 +230,7 @@ namespace MasterOfWebM
                 }
             }
 
+            // Current version of the application
             Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             if (appVersion.CompareTo(newVersion) < 0)

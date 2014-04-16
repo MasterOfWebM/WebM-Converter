@@ -53,6 +53,9 @@ namespace MasterOfWebM
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            // Delete any existing temp subtitle file
+            Helper.subsCheck();
+
             // Disable btnConvert so user's cant click on it multiple times
             btnConvert.Enabled = false;
 

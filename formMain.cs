@@ -414,5 +414,14 @@ namespace MasterOfWebM
             txtCrop.ForeColor = Color.Silver;
             comboQuality.SelectedIndex = 0;
         }
+
+        private void comboQuality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboQuality.Text == "Ultra")
+                MessageBox.Show("Ultra quality will try getting just under your\n" +
+                                "'Max Size'. This program will run ffmpeg up to 11 \n" +
+                                "times and currently there is no way of stopping it.\n\n" +
+                                "USE AT YOUR OWN RISK.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

@@ -185,7 +185,14 @@ namespace MasterOfWebM
             }
             else
             {
-                bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
+                try
+                {
+                    bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
 
                 // If audio is requested
                 if (checkAudio.Checked)

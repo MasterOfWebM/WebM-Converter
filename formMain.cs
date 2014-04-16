@@ -375,6 +375,7 @@ namespace MasterOfWebM
         {
             txtCrop.Left -= 46;
             txtCrop.Size = new System.Drawing.Size(115, 20);
+            txtCrop.ForeColor = Color.Black;
 
             if (txtCrop.Text == "o_w:o_h:x:y")
             {
@@ -391,6 +392,7 @@ namespace MasterOfWebM
             if (txtCrop.Text == "")
             {
                 txtCrop.Text = "o_w:o_h:x:y";
+                txtCrop.ForeColor = Color.Silver;
             }
         }
 

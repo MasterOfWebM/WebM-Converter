@@ -131,6 +131,22 @@ namespace MasterOfWebM
                 baseCommand = baseCommand.Replace("{length}", txtLength.Text);
             }
 
+            // Validates if the user input a value for txtCrop
+            if (!verifyCrop.IsMatch(txtCrop.Text))
+            {
+                if (txtCrop.Text != "o_w:o_h:x:y")
+                {
+                    verified = false;
+                    MessageBox.Show("The crop field is not properly set\nSyntax:\nout_x:out_y:x:y\n\nout_x & out_y is the output size\nx & y are where you begin your crop",
+                        "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                filters = true;
+                filterCommands += filterCommands == null ? "crop=" + txtCrop.Text : ",crop=" + txtCrop.Text;
+            }
+
             // Check if we need to add subtitles
             if (txtSubs.Text != "")
             {
@@ -147,22 +163,6 @@ namespace MasterOfWebM
                         filterCommands += filterCommands == null ? "subtitles=subs.srt" : ",subtitles=subs.srt";
                         break;
                 }
-            }
-
-            // Validates if the user input a value for txtCrop
-            if (!verifyCrop.IsMatch(txtCrop.Text))
-            {
-                if (txtCrop.Text != "o_w:o_h:x:y")
-                {
-                    verified = false;
-                    MessageBox.Show("The crop field is not properly set\nSyntax:\nout_x:out_y:x:y\n\nout_x & out_y is the output size\nx & y are where you begin your crop",
-                        "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                filters = true;
-                filterCommands += filterCommands == null ? "crop=" + txtCrop.Text : ",crop=" + txtCrop.Text;
             }
 
             // Validates if the user input a value for txtWidth

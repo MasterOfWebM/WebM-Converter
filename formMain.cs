@@ -413,6 +413,7 @@ namespace MasterOfWebM
             txtCrop.Text = "o_w:o_h:x:y";
             txtCrop.ForeColor = Color.Silver;
             comboQuality.SelectedIndex = 0;
+            checkAudio.Checked = false;
         }
 
         private void comboQuality_SelectedIndexChanged(object sender, EventArgs e)

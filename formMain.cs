@@ -53,6 +53,9 @@ namespace MasterOfWebM
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            // Delete any existing temp subtitle file
+            Helper.subsCheck();
+
             // Disable btnConvert so user's cant click on it multiple times
             btnConvert.Enabled = false;
 
@@ -128,6 +131,22 @@ namespace MasterOfWebM
                 baseCommand = baseCommand.Replace("{length}", txtLength.Text);
             }
 
+            // Validates if the user input a value for txtCrop
+            if (!verifyCrop.IsMatch(txtCrop.Text))
+            {
+                if (txtCrop.Text != "o_w:o_h:x:y")
+                {
+                    verified = false;
+                    MessageBox.Show("The crop field is not properly set\nSyntax:\nout_x:out_y:x:y\n\nout_x & out_y is the output size\nx & y are where you begin your crop",
+                        "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                filters = true;
+                filterCommands += filterCommands == null ? "crop=" + txtCrop.Text : ",crop=" + txtCrop.Text;
+            }
+
             // Check if we need to add subtitles
             if (txtSubs.Text != "")
             {
@@ -144,22 +163,6 @@ namespace MasterOfWebM
                         filterCommands += filterCommands == null ? "subtitles=subs.srt" : ",subtitles=subs.srt";
                         break;
                 }
-            }
-
-            // Validates if the user input a value for txtCrop
-            if (!verifyCrop.IsMatch(txtCrop.Text))
-            {
-                if (txtCrop.Text != "o_w:o_h:x:y")
-                {
-                    verified = false;
-                    MessageBox.Show("The crop field is not properly set\nSyntax:\nout_x:out_y:x:y\n\nout_x & out_y is the output size\nx & y are where you begin your crop",
-                        "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                filters = true;
-                filterCommands += filterCommands == null ? "crop=" + txtCrop.Text : ",crop=" + txtCrop.Text;
             }
 
             // Validates if the user input a value for txtWidth
@@ -185,7 +188,14 @@ namespace MasterOfWebM
             }
             else
             {
-                bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
+                try
+                {
+                    bitrate = Helper.calcBitrate(txtMaxSize.Text, txtLength.Text);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
 
                 // If audio is requested
                 if (checkAudio.Checked)
@@ -365,6 +375,7 @@ namespace MasterOfWebM
         {
             txtCrop.Left -= 46;
             txtCrop.Size = new System.Drawing.Size(115, 20);
+            txtCrop.ForeColor = Color.Black;
 
             if (txtCrop.Text == "o_w:o_h:x:y")
             {
@@ -381,6 +392,7 @@ namespace MasterOfWebM
             if (txtCrop.Text == "")
             {
                 txtCrop.Text = "o_w:o_h:x:y";
+                txtCrop.ForeColor = Color.Silver;
             }
         }
 
@@ -401,6 +413,16 @@ namespace MasterOfWebM
             txtCrop.Text = "o_w:o_h:x:y";
             txtCrop.ForeColor = Color.Silver;
             comboQuality.SelectedIndex = 0;
+            checkAudio.Checked = false;
+        }
+
+        private void comboQuality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboQuality.Text == "Ultra")
+                MessageBox.Show("Ultra quality will try getting just under your\n" +
+                                "'Max Size'. This program will run ffmpeg up to 11 \n" +
+                                "times and currently there is no way of stopping it.\n\n" +
+                                "USE AT YOUR OWN RISK.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

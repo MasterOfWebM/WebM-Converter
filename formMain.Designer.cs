@@ -255,6 +255,7 @@
             this.comboQuality.Name = "comboQuality";
             this.comboQuality.Size = new System.Drawing.Size(69, 21);
             this.comboQuality.TabIndex = 8;
+            this.comboQuality.SelectedIndexChanged += new System.EventHandler(this.comboQuality_SelectedIndexChanged);
             // 
             // btnSubs
             // 

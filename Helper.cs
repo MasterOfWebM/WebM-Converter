@@ -241,5 +241,21 @@ namespace MasterOfWebM
                 }
             }
         }
+
+        /// <summary>
+        /// Checks if a subtitle (subs.ass | subs.srt) exists
+        /// and deletes it.
+        /// </summary>
+        public static void subsCheck()
+        {
+            if(File.Exists("subs.ass"))
+            {
+                File.Delete("subs.ass");
+            }
+            else if (File.Exists("subs.srt"))
+            {
+                File.Delete("subs.srt");
+            }
+        }
     }
 }

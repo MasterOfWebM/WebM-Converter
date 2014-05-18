@@ -424,5 +424,24 @@ namespace MasterOfWebM
                                 "times and currently there is no way of stopping it.\n\n" +
                                 "USE AT YOUR OWN RISK.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void formMain_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void formMain_DragDrop(object sender, DragEventArgs e)
+        {
+            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            txtInput.Text = files[0];
+        }
     }
 }

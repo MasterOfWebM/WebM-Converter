@@ -56,6 +56,8 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.checkAudio = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtTitle = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,7 +157,7 @@
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(41, 192);
+            this.btnConvert.Location = new System.Drawing.Point(41, 200);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(75, 23);
             this.btnConvert.TabIndex = 9;
@@ -179,7 +181,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblThreads});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 222);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 231);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(303, 22);
             this.statusStrip1.SizingGrip = false;
@@ -282,7 +284,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(189, 192);
+            this.btnClear.Location = new System.Drawing.Point(189, 199);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 12;
@@ -308,11 +310,30 @@
             this.checkAudio.TabIndex = 14;
             this.checkAudio.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(21, 172);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(30, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Title:";
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(75, 170);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(69, 20);
+            this.txtTitle.TabIndex = 16;
+            this.txtTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 244);
+            this.ClientSize = new System.Drawing.Size(303, 253);
+            this.Controls.Add(this.txtTitle);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.checkAudio);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnClear);
@@ -379,6 +400,8 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkAudio;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtTitle;
     }
 }
 

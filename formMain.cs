@@ -60,7 +60,7 @@ namespace MasterOfWebM
             btnConvert.Enabled = false;
 
             // Base command where each element gets replaced
-            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {quality} {audio} ";
+            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {metadata} {quality} {audio} ";
             String filterCommands = null;
 
             // Verification boolean just incase the user messes up
@@ -240,6 +240,12 @@ namespace MasterOfWebM
                 baseCommand = baseCommand.Replace(" {scale}", "");
             }
 
+            // Validates if the user input a value for txtTitle
+            if (txtTitle.Text != "")
+            {
+                baseCommand = baseCommand.Replace("{metadata}", string.Format("-metadata title=\"{0}\"", txtTitle.Text.Replace("\"", "\\\"")));
+            }
+
             // If everything is valid, continue with the conversion
             if (verified)
             {
@@ -412,6 +418,7 @@ namespace MasterOfWebM
             txtMaxSize.Text = "3";
             txtCrop.Text = "o_w:o_h:x:y";
             txtCrop.ForeColor = Color.Silver;
+            txtTitle.Text = "";
             comboQuality.SelectedIndex = 0;
             checkAudio.Checked = false;
         }

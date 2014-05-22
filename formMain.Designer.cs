@@ -329,6 +329,7 @@
             // 
             // formMain
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 253);
@@ -364,6 +365,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "!WebM.y.TsM Converter";
             this.Load += new System.EventHandler(this.formMain_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.formMain_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.formMain_DragEnter);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

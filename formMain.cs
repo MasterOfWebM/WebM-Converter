@@ -17,7 +17,7 @@ namespace MasterOfWebM
         private String runningDirectory = AppDomain.CurrentDomain.BaseDirectory;    // Obtains the root directory
 
         Regex verifyLength = new Regex(@"^\d{1,3}");                                // Regex to verify if txtLength is properly typed in
-        Regex verifyTimeStart = new Regex(@"^[0-6]\d:[0-6]\d:[0-6]\d");             // Regex to verify if txtStartTime is properly typed in
+        Regex verifyTimeStart = new Regex(@"^(([0-6]?\d\D+)?[0-6]?\d\D+)?[0-6]?\d");// Regex to verify if txtStartTime is properly typed in 
         Regex verifyWidth = new Regex(@"^\d{1,4}");                                 // Regex to verify if txtWidth is properly typed in
         Regex verifyMaxSize = new Regex(@"^\d{1,4}");                               // Regex to verify if txtMaxSize is properly typed in
         Regex verifyCrop = new Regex(@"^\d{1,4}:\d{1,4}:\d{1,4}:\d{1,4}");          // Regex to verify if txtCrop is properly typed in
@@ -95,6 +95,13 @@ namespace MasterOfWebM
             }
             else
             {
+                if (txtTimeStart.Text.Length < 8)
+                {
+                    // Input is valid against regex, but maybe we have to add missing zeroes
+                    string correctedTimeInput = Helper.fillMissingZeroes(txtTimeStart.Text);
+                    txtTimeStart.Text = correctedTimeInput;
+                }
+
                 // Calculates the seconds from the time-code
                 double seconds = Helper.convertToSeconds(txtTimeStart.Text);
 

@@ -179,6 +179,23 @@ namespace MasterOfWebM
         }
 
         /// <summary>
+        /// Converts input to HH:MM:SS format.
+        ///        1   -> 00:00:01
+        ///       11   -> 00:00:11
+        ///     1:11   -> 00:01:11
+        ///    11:11   -> 00:11:11
+        ///  1:11:11   -> 01:11:11
+        /// 11:11:11   -> 11:11:11
+        /// </summary>
+        /// <param name="timeInput">input text</param>
+        /// <returns></returns>
+        public static string fillMissingZeroes(string timeInput)
+        {
+            string zeroes = "00:00:00";
+            return zeroes.Substring(0, zeroes.Length - timeInput.Length) + timeInput;
+        }
+
+        /// <summary>
         /// Verifies the version of the program.
         /// It will prompt the user if the program is
         /// outdated.

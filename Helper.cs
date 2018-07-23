@@ -179,7 +179,7 @@ namespace MasterOfWebM
             }
         }
         /// <summary>
-        /// Performs new version check in new tread for faster startup.
+        /// Performs new version check in new thread for faster startup.
         /// </summary>
         public static void checkUpdateInNewThread()
         {

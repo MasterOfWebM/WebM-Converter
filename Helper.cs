@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Threading;
 
 namespace MasterOfWebM
 {
@@ -177,13 +178,24 @@ namespace MasterOfWebM
                 }
             }
         }
+        /// <summary>
+        /// Performs new version check in new tread for faster startup.
+        /// </summary>
+        public static void checkUpdateInNewThread()
+        {
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = false;
+                checkUpdate();
+            }).Start();
+        }
 
         /// <summary>
         /// Verifies the version of the program.
         /// It will prompt the user if the program is
         /// outdated.
         /// </summary>
-        public static void checkUpdate()
+        private static void checkUpdate()
         {
             try
             {

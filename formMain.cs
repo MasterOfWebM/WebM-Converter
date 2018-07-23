@@ -81,10 +81,22 @@ namespace MasterOfWebM
             }
 
             // Validates if the user input a value for txtOutput
-            if (txtOutput.Text == "")
+            if (txtOutput.Text == "" && txtInput.Text != "")
             {
-                verified = false;
-                MessageBox.Show("An output file needs to be selected", "Verification Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!txtInput.Text.EndsWith(".webm"))
+                {
+                    // Keep filename, but change extension to "webm"
+                    txtOutput.Text = txtInput.Text.Substring(0, txtInput.Text.LastIndexOf(".")) + ".webm";
+                    if (!overwriteExistingFileIfExists())
+                    {
+                        verified = false;
+                    }
+                }
+                else
+                {
+                    // Add another extension to avoid overwriting original file.
+                    txtOutput.Text = txtInput.Text + ".webm";
+                }
             }
 
             // Validates if the user input a value for txtTimeStart
@@ -449,6 +461,30 @@ namespace MasterOfWebM
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             txtInput.Text = files[0];
+        }
+
+        /// <summary>
+        /// If file with automatically generated filename exists show prompt to make user aware of that and let him decide if he wants to overwrite it.
+        /// </summary>
+        /// <returns></returns>
+        private bool overwriteExistingFileIfExists()
+        {
+            FileInfo fi = new FileInfo(txtOutput.Text);
+            if (fi.Exists)
+            {
+                DialogResult dialogResult = MessageBox.Show("Overwrite " + txtOutput.Text + "?", "Output file exists", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    saveFileDialog1.FileName = txtOutput.Text;
+                    if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        txtOutput.Text = saveFileDialog1.FileName;
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

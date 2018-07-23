@@ -245,6 +245,10 @@ namespace MasterOfWebM
             {
                 baseCommand = baseCommand.Replace("{metadata}", string.Format("-metadata title=\"{0}\"", txtTitle.Text.Replace("\"", "\\\"")));
             }
+            else
+            {
+                baseCommand = baseCommand.Replace("{metadata}", "");
+            }
 
             // If everything is valid, continue with the conversion
             if (verified)

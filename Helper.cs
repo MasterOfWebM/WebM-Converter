@@ -89,7 +89,6 @@ namespace MasterOfWebM
             p.StartInfo.FileName = "cmd";
             p.StartInfo.Arguments = "/k where ffmpeg & exit";
             p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardError = true;
             p.Start();
 
             string output = p.StandardOutput.ReadToEnd();

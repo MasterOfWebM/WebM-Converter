@@ -92,7 +92,18 @@ namespace MasterOfWebM
             p.Start();
 
             string output = p.StandardOutput.ReadToEnd();
+            int ffmpegCount = output.Count(f => f == '.');
 
+            if(ffmpegCount >=2) // Multiple paths found
+            {
+                int indexOfSecondPath = output.LastIndexOf("C:\\");
+                string newOutput = output.Substring(0, indexOfSecondPath);
+                output = newOutput;
+
+                MessageBox.Show("Multiple FFmpeg instances found. Defaulted to Root.\n" +
+                                "Check root folder and PATH folder for duplicates.", "Warning",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             p.WaitForExit();
 
             if (output == "")

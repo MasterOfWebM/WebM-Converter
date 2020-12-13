@@ -60,7 +60,7 @@ namespace MasterOfWebM
             btnConvert.Enabled = false;
 
             // Base command where each element gets replaced
-            String baseCommand = "-y {time1} -i \"{input}\" {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {metadata} {quality} {audio} ";
+            String baseCommand = "-y {time1} -i \"{input}\" {audio} {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {metadata} {quality} {video_stream} {audio_stream} ";
             String filterCommands = null;
 
             // Verification boolean just incase the user messes up
@@ -78,6 +78,26 @@ namespace MasterOfWebM
             else
             {
                 baseCommand = baseCommand.Replace("{input}", txtInput.Text);
+            }
+
+            // Checks for defined Video Stream
+            if (comboVideo.SelectedIndex != -1)
+            {
+                baseCommand = baseCommand.Replace("{video_stream}", "-map 0:v:"+(comboVideo.SelectedIndex).ToString());
+            }
+            else
+            {
+                baseCommand = baseCommand.Replace(" {video_stream}", "");
+            }
+
+            // Checks for defined Audio Stream
+            if (comboVideo.SelectedIndex != -1)
+            {
+                baseCommand = baseCommand.Replace("{audio_stream}", "-map 0:a:" + (comboAudio.SelectedIndex).ToString());
+            }
+            else
+            {
+                baseCommand = baseCommand.Replace(" {audio_stream}", "");
             }
 
             // Validates if the user input a value for txtOutput
@@ -245,6 +265,10 @@ namespace MasterOfWebM
             {
                 baseCommand = baseCommand.Replace("{metadata}", string.Format("-metadata title=\"{0}\"", txtTitle.Text.Replace("\"", "\\\"")));
             }
+            else
+            {
+                baseCommand = baseCommand.Replace(" {metadata}", "");
+            }
 
             // If everything is valid, continue with the conversion
             if (verified)
@@ -370,9 +394,10 @@ namespace MasterOfWebM
             // Calls the font config checker, and if something went wrong, it disables converting
             if (!Helper.checkFFmpegFontConfig())
             {
-                btnConvert.Enabled = false;
+                btnConvert.Enabled = false; 
             }
 
+            comboVideo.SelectedIndex = 0;
             Helper.checkUpdate();
         }
 
@@ -450,5 +475,16 @@ namespace MasterOfWebM
 
             txtInput.Text = files[0];
         }
+
+        private void checkAudio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkAudio.Enabled)
+            {
+                comboAudio.Enabled = true;
+                comboAudio.SelectedIndex = 0;
+            }
+            else
+                comboAudio.Enabled = false;
+        }   
     }
 }

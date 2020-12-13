@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterOfWebM", "MasterOfWebM.csproj", "{4ABF1D9F-17E4-4E5F-8ABE-3E6609DBC3C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4ABF1D9F-17E4-4E5F-8ABE-3E6609DBC3C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ABF1D9F-17E4-4E5F-8ABE-3E6609DBC3C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ABF1D9F-17E4-4E5F-8ABE-3E6609DBC3C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ABF1D9F-17E4-4E5F-8ABE-3E6609DBC3C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CF7A08E-E73D-48B9-96F8-761472A976A5}
+	EndGlobalSection
+EndGlobal

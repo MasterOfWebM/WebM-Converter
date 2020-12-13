@@ -62,8 +62,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.comboVideo = new System.Windows.Forms.ComboBox();
             this.comboAudio = new System.Windows.Forms.ComboBox();
-            this.comboSubs = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -163,7 +161,7 @@
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(60, 259);
+            this.btnConvert.Location = new System.Drawing.Point(60, 240);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(75, 23);
             this.btnConvert.TabIndex = 9;
@@ -187,7 +185,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblThreads});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 296);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 277);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(322, 22);
             this.statusStrip1.SizingGrip = false;
@@ -290,7 +288,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(208, 258);
+            this.btnClear.Location = new System.Drawing.Point(208, 239);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 12;
@@ -383,40 +381,12 @@
             this.comboAudio.Size = new System.Drawing.Size(69, 21);
             this.comboAudio.TabIndex = 20;
             // 
-            // comboSubs
-            // 
-            this.comboSubs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSubs.Enabled = false;
-            this.comboSubs.FormattingEnabled = true;
-            this.comboSubs.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.comboSubs.Location = new System.Drawing.Point(75, 227);
-            this.comboSubs.Name = "comboSubs";
-            this.comboSubs.Size = new System.Drawing.Size(69, 21);
-            this.comboSubs.TabIndex = 22;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Enabled = false;
-            this.label11.Location = new System.Drawing.Point(1, 231);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(70, 13);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "Subs Stream:";
-            // 
             // formMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 318);
-            this.Controls.Add(this.comboSubs);
-            this.Controls.Add(this.label11);
+            this.ClientSize = new System.Drawing.Size(322, 299);
             this.Controls.Add(this.comboAudio);
             this.Controls.Add(this.comboVideo);
             this.Controls.Add(this.label10);
@@ -497,8 +467,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboVideo;
         private System.Windows.Forms.ComboBox comboAudio;
-        private System.Windows.Forms.ComboBox comboSubs;
-        private System.Windows.Forms.Label label11;
     }
 }
 

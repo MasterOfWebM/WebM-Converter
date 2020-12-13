@@ -60,7 +60,7 @@ namespace MasterOfWebM
             btnConvert.Enabled = false;
 
             // Base command where each element gets replaced
-            String baseCommand = "-y {time1} -i \"{input}\" {audio} {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {metadata} {quality} {video_stream} {audio_stream} {subtitle_stream} ";
+            String baseCommand = "-y {time1} -i \"{input}\" {audio} {time2} -t {length} -c:v libvpx -b:v {bitrate} {scale} -threads {threads} {metadata} {quality} {video_stream} {audio_stream} ";
             String filterCommands = null;
 
             // Verification boolean just incase the user messes up
@@ -98,17 +98,6 @@ namespace MasterOfWebM
             else
             {
                 baseCommand = baseCommand.Replace(" {audio_stream}", "");
-            }
-
-            // Checks for defined Subtitle Stream
-            if (comboVideo.SelectedIndex != -1)
-            {
-                //baseCommand = baseCommand.Replace("{subtitle_stream}", "-map 3:" + (comboSubs.SelectedIndex).ToString());
-                baseCommand = baseCommand.Replace("{subtitle_stream}", "");
-            }
-            else
-            {
-                baseCommand = baseCommand.Replace(" {subtitle_stream}", "");
             }
 
             // Validates if the user input a value for txtOutput
